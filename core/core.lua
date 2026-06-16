@@ -465,7 +465,7 @@ function TC2:UpdateThreatBars()
         local threatRequired = pullAggroThreatValue - playerThreat
         
         local isAbsolute = (C.bar.pullAggroBarPercentage == "ABSOLUTE")
-        local threatPercentageRequired = 1000 -- Default to >999 for relative division by zero
+        local threatPercentageRequired = 100 -- Default to >99 for relative division by zero
         
         if isAbsolute then
             -- ABSOLUTE: Simple subtraction based on the user's raw vs scaled setting
@@ -488,10 +488,10 @@ function TC2:UpdateThreatBars()
         bar.name:SetText(C.bar.pullAggroBarText)
         bar.val:SetText("+"..NumFormat(floor(threatRequired + 0.5)))  -- floor(x + 0.5) is lua's missing round()
         
-        local suffix = isAbsolute and "pp" or "%"
+        local suffix = isAbsolute and "p" or "%"
         
-        if threatPercentageRequired > 999 then
-            bar.perc:SetText(">999" .. suffix)
+        if threatPercentageRequired > 99 then
+            bar.perc:SetText(">99" .. suffix)
         else
             bar.perc:SetText("+"..floor(threatPercentageRequired + 0.5)..suffix)  -- floor(x + 0.5) is lua's missing round()
         end
